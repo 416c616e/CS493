@@ -1,0 +1,26 @@
+{
+    "name": "Review-Site",
+    "description": "A yelp-like business review and ratings site.",
+    "version": "1.0.0",
+    "main": "review-site.js",
+    "scripts": {
+        "start": "node review-site.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/OSU-CS493-Sp18/assignment-1-416C616E.git"
+    },
+    "keywords": [],
+    "author": "Alan Neads",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/OSU-CS493-Sp18/assignment-1-416C616E/issues"
+    },
+    "homepage": "https://github.com/OSU-CS493-Sp18/assignment-1-416C616E",
+    "dependencies": {
+        "express": "^4.16.3",
+        "body-parser": "^1.18.2",
+        "multer": "^1.3.0"
+    }
+}

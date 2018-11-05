@@ -1,0 +1,1200 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is my(Alan Neads) OpenAPI documentation for the yelp-like review site we were tasked with making for the first assignment for CS 493, Cloud Application Development.",
+    "version": "1.0.0",
+    "title": "Business Review Site",
+    "termsOfService": "",
+    "contact": {
+      "email": "neadsa@oregonstate.edu"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Get a list of the categories",
+        "description": "Get a list of the categories",
+        "operationId": "getCategories",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Categories returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Create a category",
+        "description": "Create a category",
+        "operationId": "createCategory",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "category",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created new category",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/categories/{categoryID}": {
+      "get": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Get a category",
+        "description": "Get a category",
+        "operationId": "getCategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category returned as response",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "404": {
+            "description": "Category doesn't exist"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Update or create a category",
+        "description": "Update or create a category",
+        "operationId": "createOrUpdateCategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category created",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category doesn't exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Delete a category",
+        "description": "Delete a category",
+        "operationId": "deleteCategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category doesn't exist"
+          }
+        }
+      }
+    },
+    "/categories/{categoryID}/subcategories": {
+      "get": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "Get a list of the subcategories",
+        "description": "Get a list of the subcategories",
+        "operationId": "getSubcategories",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategories returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Subcategory"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category doesn't exist"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "Create a subcategory",
+        "description": "Create a subcategory",
+        "operationId": "createSubcategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "subcategory",
+            "schema": {
+              "$ref": "#/definitions/Subcategory"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created new subcategory",
+            "schema": {
+              "$ref": "#/definitions/Subcategory"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category/Subcategory doesn't exist"
+          }
+        }
+      }
+    },
+    "/categories/{categoryID}/subcategories/{subcategoryID}": {
+      "get": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "Get a category",
+        "description": "Get a subcategory",
+        "operationId": "getSubcategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subcategoryID",
+            "in": "path",
+            "description": "ID of subcategory",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory returned as response",
+            "schema": {
+              "$ref": "#/definitions/Subcategory"
+            }
+          },
+          "404": {
+            "description": "Category/Subcategory doesn't exist"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "Update or create a category",
+        "description": "Update or create a category",
+        "operationId": "createOrUpdateSubcategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subcategoryID",
+            "in": "path",
+            "description": "ID of subcategory",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory created",
+            "schema": {
+              "$ref": "#/definitions/Subcategory"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category/Subcategory doesn't exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "subcategory"
+        ],
+        "summary": "Delete a subcategory",
+        "description": "Delete a subcategory",
+        "operationId": "deleteSubcategory",
+        "parameters": [
+          {
+            "name": "categoryID",
+            "in": "path",
+            "description": "ID of category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "subcategoryID",
+            "in": "path",
+            "description": "ID of subcategory",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Category/Subcategory doesn't exist"
+          }
+        }
+      }
+    },
+    "/businesses": {
+      "get": {
+        "tags": [
+          "business"
+        ],
+        "summary": "Get a list of the businesses",
+        "description": "Get a list of the businesses",
+        "operationId": "getBusinesses",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Business returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Business"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business"
+        ],
+        "summary": "Create a business",
+        "description": "Create a business",
+        "operationId": "createBusiness",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "business",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created new business",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/business/{businessID}": {
+      "get": {
+        "tags": [
+          "business"
+        ],
+        "summary": "Get a business",
+        "description": "Get a business",
+        "operationId": "getBusiness",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Business returned as response",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "business"
+        ],
+        "summary": "Update or create a business",
+        "description": "Update or create a business",
+        "operationId": "createOrUpdateBusiness",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Business created",
+            "schema": {
+              "$ref": "#/definitions/Business"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Business isn't owned by userID and cannot be modified"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "business"
+        ],
+        "summary": "Delete a business",
+        "description": "Delete a business",
+        "operationId": "deleteBusiness",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Business deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Business isn't owned by userID and cannot be deleted"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      }
+    },
+    "/business/{businessID}/reviews": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get a list of business reviews",
+        "description": "Get a list of business reviews",
+        "operationId": "getReviews",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Reviews returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Create a review",
+        "description": "Create a review",
+        "operationId": "createReview",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "review",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created new review",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Review already exists for user ID"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      }
+    },
+    "/business/{businessID}/reviews/{reviewID}": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get a review",
+        "description": "Get a review",
+        "operationId": "getReview",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "reviewID",
+            "in": "path",
+            "description": "ID of review",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review returned as response",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Update or create a review",
+        "description": "Update or create a review",
+        "operationId": "createOrUpdateReview",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "reviewID",
+            "in": "path",
+            "description": "ID of review",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review created",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Review already exists for user ID"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Delete a review",
+        "description": "Delete a review",
+        "operationId": "deleteReview",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "reviewID",
+            "in": "path",
+            "description": "ID of review",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Review not owned by user ID"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      }
+    },
+    "/business/{businessID}/images": {
+      "get": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Get a list of business images",
+        "description": "Get a list of business images",
+        "operationId": "getImages",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Images returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Create an image",
+        "description": "Create an image",
+        "operationId": "createImage",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "review",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Created new image",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      }
+    },
+    "/business/{businessID}/images/{imageID}": {
+      "get": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Get an image",
+        "description": "Get a image",
+        "operationId": "getImage",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "imageID",
+            "in": "path",
+            "description": "ID of image",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image returned as response",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Update or create a image",
+        "description": "Update or create a image",
+        "operationId": "createOrUpdateImage",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "imageID",
+            "in": "path",
+            "description": "ID of image",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image created",
+            "schema": {
+              "$ref": "#/definitions/Image"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "image"
+        ],
+        "summary": "Delete an image",
+        "description": "Delete an image",
+        "operationId": "deleteImage",
+        "parameters": [
+          {
+            "name": "businessID",
+            "in": "path",
+            "description": "ID of business",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "imageID",
+            "in": "path",
+            "description": "ID of image",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image deleted"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Image not owned by user ID"
+          },
+          "404": {
+            "description": "Business doesn't exist"
+          }
+        }
+      }
+    },
+    "/user/{userID}/businesses": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get a list of the users' businesses",
+        "description": "Get a list of the users' businesses",
+        "operationId": "getUserBusinesses",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Businesses returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Business"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/{userID}/reviews": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get a list of the users' reviews",
+        "description": "Get a list of the users' reviews",
+        "operationId": "getUserReviews",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Reviews returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Review"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/{userID}/images": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get a list of the users' images",
+        "description": "Get a list of the users' images",
+        "operationId": "getUserImages",
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Images returned as response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Image"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "Subcategory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "categoryID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Subcategory"
+      }
+    },
+    "Business": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ownerUserID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "streetAddress": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "categories": {
+          "type": "array",
+          "description": "List referencing categories",
+          "items": {
+            "$ref": "#/definitions/Category"
+          }
+        },
+        "subcategories": {
+          "type": "array",
+          "description": "List referencing subcategories",
+          "items": {
+            "$ref": "#/definitions/Subcategory"
+          }
+        },
+        "website": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Business"
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "filePath": {
+          "type": "string"
+        },
+        "caption": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Image"
+      }
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "businessID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userID": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "starRating": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "dollarSignRating": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "writtenReview": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Image"
+      }
+    }
+  }
+}

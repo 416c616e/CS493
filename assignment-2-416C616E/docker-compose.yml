@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      MYSQL_DATABASE: yelp_site
+      MYSQL_USER: yelp_site
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+    networks:
+      - mysql-net
+    depends_on:
+      - "mysql"
+    volumes:
+      - .:/var/app/businesses
+  mysql:
+    image: mysql:5
+    restart: always
+    volumes:
+      - .:/var/app/businesses
+      - mysql-data:/var/lib/mysql
+    command: --init-file /var/app/businesses/setup.sql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: yelp_site
+      MYSQL_USER: yelp_site
+      MYSQL_PASSWORD: password
+    networks:
+        - mysql-net
+networks:
+  mysql-net:
+    driver: bridge
+volumes:
+  mysql-data:
